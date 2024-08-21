@@ -16,8 +16,6 @@ class MessageQueue {
                 return false
             }
         }
-
-
     }
 
     // Subscribe retorna a fila de mensagens do tópico especificado. Cria uma nova fila se o tópico não existir.

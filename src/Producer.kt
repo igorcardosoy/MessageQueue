@@ -1,4 +1,5 @@
 import java.net.HttpURLConnection
+import java.net.URI
 import java.net.URL
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -16,16 +17,16 @@ class Producer (private val topics: List<String>) {
             )
 
             if (mq.publish(message)) {
-                println("${GREEN}${Thread.currentThread().threadId()} - Publicou em ${topic} - ${message.content} ${message.time} ${RESET}")
+                println("${Colors.GREEN.getString()}${Thread.currentThread().threadId()} - Publicou em $topic - ${message.content} ${message.time} ${Colors.RESET.getString()}")
                 Thread.sleep(1000L)
             } else {
-                println("Falha ao publicar no $topic: ${message.content}")
+                println("${Colors.ANSI_RED_BACKGROUND.getString()}Falha ao publicar no $topic: ${message.content} ${Colors.RESET.getString()}")
             }
         }
     }
 
     private fun makeReq(): String {
-        val url = URL("https://api.chucknorris.io/jokes/random")
+        val url = URI("https://api.chucknorris.io/jokes/random").toURL()
         val connection = url.openConnection() as HttpURLConnection
 
         try {
