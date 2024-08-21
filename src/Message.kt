@@ -1,6 +1,6 @@
 import java.time.ZonedDateTime
 
 data class Message(
-    val content: ZonedDateTime,
+    val content: String,
     val topic: String
 )
