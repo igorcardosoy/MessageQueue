@@ -10,13 +10,13 @@ class Producer (private val topics: List<String>) {
             val topic = topics.random()
             val text = makeReq()
             val message = Message(
-                content = (ZonedDateTime.now(ZoneId.of(topic)).toString() +  " - $text"),
+                content = text,
+                time = ZonedDateTime.now(ZoneId.of(topic)),
                 topic = topic
             )
 
             if (mq.publish(message)) {
-                println("${GREEN}${Thread.currentThread().threadId()} - Publicou em ${topic}: ${message.content}${RESET}")
-                println("Produtor publicou no $topic: ${message.content}")
+                println("${GREEN}${Thread.currentThread().threadId()} - Publicou em ${topic} - ${message.content} ${message.time} ${RESET}")
                 Thread.sleep(1000L)
             } else {
                 println("Falha ao publicar no $topic: ${message.content}")
@@ -32,7 +32,6 @@ class Producer (private val topics: List<String>) {
             connection.requestMethod = "GET"
 
             val responseCode = connection.responseCode
-            println("Código de resposta: $responseCode")
 
             if (responseCode == HttpURLConnection.HTTP_OK) {
                 val inputStream = connection.inputStream

@@ -10,8 +10,7 @@ class Consumer(private val topic: String) {
 
         while (true) {
             val message = queue.take()
-            println("Consumidor no $topic consumiu: ${message.content}")
-
+            println("${RED}${Thread.currentThread().threadId()} - Consumiu em ${topic} - ${message.content} ${message.time.format(formatter)} ${RESET}")
             Thread.sleep(2000L)
         }
     }
