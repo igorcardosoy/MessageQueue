@@ -5,6 +5,9 @@ import kotlin.concurrent.thread
 import kotlin.system.exitProcess
 
 val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")
+val RESET = "\u001B[0m"
+val RED = "\u001B[31m"
+val GREEN = "\u001B[32m"
 
 fun producer(mq: MessageQueue, topics: List<String>) {
     while (true) {
@@ -15,7 +18,8 @@ fun producer(mq: MessageQueue, topics: List<String>) {
         )
 
         if (mq.publish(message)) {
-            println("Produtor publicou no $topic: ${message.content}")
+//            println(ANSI_RED+"Produtor publicou no $topic: ${message.content}")
+            println("${GREEN}${Thread.currentThread().threadId()} - Publicou em ${topic}: ${message.content}${RESET}")
             Thread.sleep(1000L) // Simula algum trabalho com um sleep
         } else {
             println("Falha ao publicar no $topic: ${message.content}")
@@ -28,7 +32,8 @@ fun consumer(mq: MessageQueue, topic: String) {
 
     while (true) {
         val message = queue.take()
-        println("Consumidor no $topic consumiu: ${message.content.format(formatter)}")
+//        println("Consumidor no $topic consumiu: ${message.content.format(formatter)}"
+        println("${RED}${Thread.currentThread().threadId()} - Consumiu em ${topic}: ${message.content.format(formatter)} ${RESET}")
 
         Thread.sleep(2000L)
     }
@@ -40,7 +45,6 @@ fun main() {
 
     val producerCount = 4
     val consumerCount = 8
-
     repeat(producerCount) {
         thread { producer(mq, topics) }
     }
