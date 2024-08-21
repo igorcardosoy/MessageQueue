@@ -1,3 +1,5 @@
+package model.utils
+
 enum class Colors(val s: String) {
     RESET ("\u001B[0m"),
     ANSI_PURPLE("\u001B[35m"),

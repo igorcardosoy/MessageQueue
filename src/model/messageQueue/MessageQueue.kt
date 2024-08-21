@@ -1,6 +1,7 @@
+package model.messageQueue
+
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.LinkedBlockingQueue
-import java.util.concurrent.locks.ReentrantLock
 
 class MessageQueue {
     private val queues = ConcurrentHashMap<String, LinkedBlockingQueue<Message>>()
@@ -18,11 +19,10 @@ class MessageQueue {
         }
     }
 
-    // Subscribe retorna a fila de mensagens do tópico especificado. Cria uma nova fila se o tópico não existir.
     fun subscribe(topic: String): LinkedBlockingQueue<Message> {
         synchronized(this){
             return queues.getOrPut(topic) {
-                LinkedBlockingQueue(10) // Default value para o retorno do map, se o tópico não existir.
+                LinkedBlockingQueue(10)
             }
         }
     }

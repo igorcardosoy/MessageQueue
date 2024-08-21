@@ -1,3 +1,5 @@
+package model.messageQueue
+
 import java.time.ZonedDateTime
 
 data class Message(

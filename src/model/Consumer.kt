@@ -1,3 +1,7 @@
+package model
+
+import model.messageQueue.MessageQueue
+import model.utils.Colors
 import java.time.format.DateTimeFormatter
 
 class Consumer(private val topic: String) {
@@ -10,7 +14,9 @@ class Consumer(private val topic: String) {
 
         while (true) {
             val message = queue.take()
-            println("${Colors.RED.getString()}${Thread.currentThread().threadId()} - Consumiu em $topic - ${message.content} ${message.time.format(formatter)} ${Colors.RESET.getString()}")
+            println("${Colors.RED.getString()}${Thread.currentThread().threadId()} - Consumiu em $topic - ${message.content} ${message.time.format(
+                formatter
+            )} ${Colors.RESET.getString()}")
             Thread.sleep(2000L)
         }
     }

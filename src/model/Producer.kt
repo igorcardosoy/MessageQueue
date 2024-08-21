@@ -1,6 +1,10 @@
+package model
+
+import model.messageQueue.Message
+import model.messageQueue.MessageQueue
+import model.utils.Colors
 import java.net.HttpURLConnection
 import java.net.URI
-import java.net.URL
 import java.time.ZoneId
 import java.time.ZonedDateTime
 
