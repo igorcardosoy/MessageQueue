@@ -11,7 +11,7 @@ val formatter: DateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm
 
 fun main() {
     val mq = MessageQueue()
-    val topics = GMT.entries.map { it.getString() }
+    val local = GMT.entries.map { it.getString() }
 
     println("${Colors.ANSI_PURPLE.getString()}Digite a quantidade de produtores:${Colors.RESET.getString()}")
     val producerCount = readln().toInt()
@@ -20,11 +20,11 @@ fun main() {
     val consumerCount = readln().toInt()
 
     repeat(producerCount) {
-        thread { Producer(topics).produce(mq) }
+        thread { Producer(local).produce(mq) }
     }
 
     repeat(consumerCount) { i ->
-        thread { Consumer(topics[i % topics.size]).consume(mq) }
+        thread { Consumer(local[i % local.size]).consume(mq) }
     }
 
     Thread.sleep(15000L)

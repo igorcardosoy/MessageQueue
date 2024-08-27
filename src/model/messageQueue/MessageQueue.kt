@@ -8,7 +8,7 @@ class MessageQueue {
 
     fun publish(message: Message): Boolean {
         synchronized(this){
-            val queue = queues.getOrPut(message.topic) {
+            val queue = queues.getOrPut(message.local) {
                LinkedBlockingQueue(10)
            }
             try {
@@ -19,9 +19,9 @@ class MessageQueue {
         }
     }
 
-    fun subscribe(topic: String): LinkedBlockingQueue<Message> {
+    fun subscribe(local: String): LinkedBlockingQueue<Message> {
         synchronized(this){
-            return queues.getOrPut(topic) {
+            return queues.getOrPut(local) {
                 LinkedBlockingQueue(10)
             }
         }
