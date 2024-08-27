@@ -28,7 +28,7 @@ class Producer (private val local: List<String>) {
                 println("${Colors.GREEN.getString()}${Thread.currentThread().threadId()} - ${message.user} - ${message.local}\n ${message.time}  ${Colors.RESET.getString()}")
                 Thread.sleep(1000L)
             } else {
-                println("${Colors.ANSI_RED_BACKGROUND.getString()}Falha ao publicar no $local: ${message.content} ${Colors.RESET.getString()}")
+                println("${Colors.ANSI_RED_BACKGROUND.getString()}${Thread.currentThread().threadId()} ${message.user} - FALHA NA PUBLICACAO - FILA CHEIA ${Colors.RESET.getString()}")
             }
         }
     }
