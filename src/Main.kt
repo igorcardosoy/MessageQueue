@@ -19,13 +19,15 @@ fun main() {
     println("${Colors.ANSI_PURPLE.getString()}Digite a quantidade de consumidores:${Colors.RESET.getString()}")
     val consumerCount = readln().toInt()
 
-    repeat(producerCount) {
-        thread { Producer(local).produce(mq) }
-    }
 
     repeat(consumerCount) { i ->
         thread { Consumer(local[i % local.size]).consume(mq) }
     }
+
+    repeat(producerCount) {
+        thread { Producer(local).produce(mq) }
+    }
+
 
     Thread.sleep(15000L)
 

@@ -25,10 +25,12 @@ class Producer (private val local: List<String>) {
             while (!mq.publish(message)) {
                 println("${Colors.ANSI_RED_BACKGROUND.getString()}${Thread.currentThread().threadId()} ${message.user} - FALHA NA PUBLICACAO NO ${message.time} - FILA CHEIA ${Colors.RESET.getString()}")
 
-                Thread.sleep(1000L)
+                Thread.sleep(500L)
             }
 
             println("${Colors.GREEN.getString()}${Thread.currentThread().threadId()} - ${message.user} - ${message.local}\n ${message.time}  ${Colors.RESET.getString()}")
+
+            //Sleep para simular o tempo de produção
             Thread.sleep(1000L)
         }
     }

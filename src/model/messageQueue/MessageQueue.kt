@@ -11,11 +11,8 @@ class MessageQueue {
             val queue = queues.getOrPut(message.local) {
                LinkedBlockingQueue(10)
            }
-            try {
-                return queue.add(message)
-            } catch (e: IllegalStateException) {
-                return false
-            }
+
+            return queue.offer(message)
         }
     }
 
